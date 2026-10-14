@@ -1,0 +1,23 @@
+﻿name: fast-api
+  
+services:
+  postgres:
+    image: postgres:16
+    container_name: fast-api-postgres
+    restart: no
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Hello12#
+      POSTGRES_DB: imdb
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d imdb']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
